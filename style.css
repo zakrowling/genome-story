@@ -345,3 +345,29 @@
       transition: all 0.2s ease;
     }
     .btn-reset:hover { color: var(--text-muted); border-color: var(--text-muted); }
+
+    #mute-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(18, 22, 31, 0.85);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 240, 255, 0.15);
+    }
+    #mute-btn:hover {
+        background: var(--accent-cyan);
+        color: #fff;
+        transform: translateY(-1px) scale(1.05);
+    }

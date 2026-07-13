@@ -2,6 +2,10 @@ function toggleModal(show) {
       const modal = document.getElementById('modal-overlay');
       modal.style.opacity = show ? '1' : '0';
       modal.style.pointerEvents = show ? 'auto' : 'none';
+
+      if (!show) {
+        SFX.startBackgroundMusic();
+      }
     }
 
     let isPanelCollapsed = false;
@@ -404,4 +408,25 @@ function toggleModal(show) {
     document.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('mouseenter', () => SFX.playHoverSound());
       btn.addEventListener('click', () => SFX.playClickSound());
+    });
+
+    const muteBtn = document.getElementById('mute-btn');
+    let isMuted = false;
+
+    function handleMuteToggle() {
+      isMuted = !isMuted;
+      SFX.toggleMuteBackgroundMusic();
+      if (muteBtn) {
+        muteBtn.textContent = isMuted ? '🔇' : '🔊';
+      }
+    }
+
+    if (muteBtn) {
+      muteBtn.addEventListener('click', handleMuteToggle);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'KeyM') {
+        handleMuteToggle();
+      }
     });
