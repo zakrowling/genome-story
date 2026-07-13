@@ -97,9 +97,7 @@
     }
 
     .modal-card h3 {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      font-size: 1rem;
       color: var(--accent-cyan);
       padding: 8px 0 0;
     }
@@ -182,6 +180,7 @@
       border-bottom-right-radius: 50%;
       background: rgba(22, 27, 38, 0.95);
       border: 1px solid var(--accent-cyan);
+      border-left: 0;
       color: var(--accent-cyan);
       font-size: 0.85rem;
       cursor: pointer;
@@ -213,7 +212,7 @@
       flex-direction: column;
       gap: 12px;
     }
-    .story-card-block h2 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; font-weight: 600; }
+    .story-card-block h2 { font-size: 0.82rem; letter-spacing: 1px; color: #fff; font-weight: 600; }
     .story-text { font-size: 0.88rem; line-height: 1.5; color: #cbd5e1; }
 
     /* Interactive Pie/Donut Chart Component */
@@ -344,15 +343,15 @@
 
     .btn-reset {
       background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
+      border: 1px solid #fff;
+      color: #fff;
       padding: 16px;
-      border-radius: 8px;
+      border-radius: 4px;
       font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.2s ease;
     }
-    .btn-reset:hover { color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+    .btn-reset:hover { color: var(--text-muted); border-color: var(--text-muted); }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -364,7 +363,7 @@
   <div id="canvas-container"></div>
 
   <div id="top-bar">
-    <button class="info-modal-btn" onclick="toggleModal(true)">🧬 Understanding Your DNA</button>
+    <button class="info-modal-btn" onclick="toggleModal(true)">🧬 Understanding your DNA</button>
   </div>
 
   <div id="modal-overlay">
@@ -375,7 +374,7 @@
       </div>
       <h3>Why is your DNA shaped like a folded ribbon?</h3>
       <p>
-        In cellular biology, DNA isn't a long, straight ladder floating freely in space. Instead, over <strong>two metres</strong> of genetic code is meticulously folded inside the microscopic nucleus of every cell in a complex 3D looped system known as <strong>chromatin architecture</strong>.
+        In cellular biology, DNA isn't a long, straight ladder floating freely in space. Instead, over <strong>two metres</strong> of genetic code is meticulously folded inside the microscopic nucleus of every cell in a complex 3D looped system known as <strong>chromatin architecture</strong> (a folded nucleosome fiber).
       </p>
 
       <p>
@@ -383,22 +382,22 @@
       </p>
 
       <div>
-        <h3>How to Explore & Navigate</h3>
+        <h3>How to explore and navigate</h3>
         <div class="nav-guide-list">
           <div class="nav-item">
-            <strong>Rotate & Tilt 🖱️</strong>
+            <strong>Rotate and tilt 🖱️</strong>
             Click and drag anywhere on the 3D canvas to spin the genome.
           </div>
           <div class="nav-item">
-            <strong>Zoom In / Out 🔍</strong>
+            <strong>Zoom in or out 🔍</strong>
             Use your mouse scroll wheel or pinch on a trackpad.
           </div>
           <div class="nav-item">
-            <strong>Fly-To Gene Locus 📍</strong>
+            <strong>Fly-To gene locus 📍</strong>
             Click any <em>"Explore"</em> button or pie chart segment to zoom directly to that gene locus.
           </div>
           <div class="nav-item">
-            <strong>Reset View 🔄</strong>
+            <strong>Reset view 🔄</strong>
             Click <em>"Reset View"</em> at the bottom of the panel to return to full overview mode.
           </div>
         </div>
@@ -484,8 +483,8 @@
           Explore how your metabolic enzymes process caffeine, dairy sugars, essential vitamins, and dietary fats. Details below.
         </p>
         <div class="explore-btn-group">
-          <button class="explore-btn" id="btn-caffeine" onclick="flyToStory('caffeine', this)">☕ Caffeine: Fast Metabolizer</button>
-          <button class="explore-btn" id="btn-lactose" onclick="flyToStory('lactose', this)">🥛 Lactase Persistent (Tolerant)</button>
+          <button class="explore-btn" id="btn-caffeine" onclick="flyToStory('caffeine', this)">☕ Caffeine Metabolism</button>
+          <button class="explore-btn" id="btn-lactose" onclick="flyToStory('lactose', this)">🥛 Lactase Persistence (Tolerance)</button>
           <button class="explore-btn" id="btn-vitamin_d" onclick="flyToStory('vitamin_d', this)">☀️ Vitamin D Efficiency</button>
           <button class="explore-btn" id="btn-fat_sensitivity" onclick="flyToStory('fat_sensitivity', this)">🥑 Fat Sensitivity (FTO)</button>
         </div>
@@ -497,7 +496,7 @@
           John, your cardiovascular panel shows strong genetic baseline protection for heart elasticity, alongside typical lung immunity. Details below.
         </p>
         <div class="explore-btn-group">
-          <button class="explore-btn" id="btn-heart" onclick="flyToStory('heart', this)">📍 Heart Disease Risk: Low</button>
+          <button class="explore-btn" id="btn-heart" onclick="flyToStory('heart', this)">📍 Heart Disease Risk</button>
           <button class="explore-btn" id="btn-asthma" onclick="flyToStory('asthma', this)">📍 Airway Resilience</button>
           <button class="explore-btn" id="btn-colorectal" onclick="flyToStory('colorectal', this)">📍 Gut & Digestive Wellness</button>
         </div>
@@ -509,9 +508,9 @@
           Single-gene checks confirm you do not carry inherited mutations for cystic fibrosis or sickle cell trait, and carry standard DNA repair capabilities. Details below.
         </p>
         <div class="explore-btn-group">
-          <button class="explore-btn" id="btn-sickle_cell" onclick="flyToStory('sickle_cell', this)">📍 Sickle Cell: Clear</button>
-          <button class="explore-btn" id="btn-cystic_fibrosis" onclick="flyToStory('cystic_fibrosis', this)">📍 Cystic Fibrosis: Clear</button>
-          <button class="explore-btn" id="btn-brca" onclick="flyToStory('brca', this)">📍 BRCA DNA Quality Control</button>
+          <button class="explore-btn" id="btn-sickle_cell" onclick="flyToStory('sickle_cell', this)">📍 Sickle Cell</button>
+          <button class="explore-btn" id="btn-cystic_fibrosis" onclick="flyToStory('cystic_fibrosis', this)">📍 Cystic Fibrosis</button>
+          <button class="explore-btn" id="btn-brca" onclick="flyToStory('brca', this)">📍 Breast Cancer (BRCA1 & BRCA2)</button>
         </div>
       </div>
 
@@ -604,25 +603,25 @@
 
       // 2. Nutrigenomics & Lifestyle Traits
       caffeine: {
-        title: "Caffeine Metabolism: Fast (CYP1A2)",
+        title: "You metabolise caffeine quickly (CYP1A2)",
         body: "Chromosome 15. You possess high-activity CYP1A2 liver enzymes, allowing rapid caffeine clearance without lingering sleep disruption or elevated jitteriness.",
         tProgress: 0.35,
         color: 0xffaa00
       },
       lactose: {
-        title: "Lactase Persistence (LCT/MCM6)",
+        title: "You are lactase persistent (tolerant) (LCT/MCM6)",
         body: "Chromosome 2. You carry the active lactase persistence regulatory variant, allowing smooth digestion of lactose and fresh dairy products throughout adulthood.",
         tProgress: 0.41,
         color: 0x33ff88
       },
       vitamin_d: {
-        title: "Vitamin D Binding Protein (GC)",
+        title: "You have standard Vitamin D binding efficiency (GC)",
         body: "Chromosome 4. Standard binding efficiency for circulating 25-hydroxyvitamin D, supporting optimal calcium absorption and bone turnover.",
         tProgress: 0.47,
         color: 0xffff33
       },
       fat_sensitivity: {
-        title: "Dietary Fat & Weight Sensitivity (FTO)",
+        title: "Moderate weight sensitivity to saturated fats (FTO)",
         body: "Chromosome 16. Your FTO intron variant indicates moderate weight sensitivity to high-saturated-fat diets, favoring balanced unsaturated fat intake.",
         tProgress: 0.53,
         color: 0xff8800
@@ -630,19 +629,19 @@
 
       // 3. Cardiovascular & Health Risks
       heart: {
-        title: "Heart Health: Optimal Baseline",
+        title: "Heart health is at the optimal baseline",
         body: "Chromosome 9 (9p21 region). John, you carry protective variants that support healthy vascular lining and low natural inflammation around arterial walls.",
         tProgress: 0.59,
         color: 0x00f0ff
       },
       asthma: {
-        title: "Airway & Respiratory Defense",
+        title: "Normal airway and respiratory defense systems",
         body: "Chromosome 17 (ORMDL3). Your genetic profile indicates normal bronchial airway responsiveness to seasonal dust and environmental allergens.",
         tProgress: 0.65,
         color: 0x33ff88
       },
       colorectal: {
-        title: "Digestive DNA Maintenance",
+        title: "Healthy Digestive cell repair and maintenance",
         body: "Chromosome 8. High-performing mismatch repair markers that maintain healthy gastrointestinal cell renewal.",
         tProgress: 0.71,
         color: 0x00aeff
@@ -650,19 +649,19 @@
 
       // 4. Inherited Traits & Carrier Status
       sickle_cell: {
-        title: "Sickle Cell Carrier: Clear",
+        title: "Minor risk of sickle cell",
         body: "Chromosome 11 (HBB gene). Both gene copies produce standard hemoglobin, ensuring round, flexible red blood cells.",
         tProgress: 0.77,
         color: 0xffaa00
       },
       cystic_fibrosis: {
-        title: "Cystic Fibrosis (CFTR): Clear",
+        title: "Clear of cystic fibrosis (CFTR)",
         body: "Chromosome 7. No CFTR channel mutations detected. Your body regulates cellular salt and fluid balance without disruption.",
         tProgress: 0.83,
         color: 0xcc66ff
       },
       brca: {
-        title: "BRCA1 / BRCA2 Protection",
+        title: "Low risk of breast cancer 1 and 2 genes (BRCA1 & BRCA2)",
         body: "Chromosomes 13 & 17. Your DNA repair machinery acts like a vigilant proofreader, detecting and repairing normal cell replication errors smoothly.",
         tProgress: 0.89,
         color: 0x33ffaa
@@ -670,13 +669,13 @@
 
       // 5. Brain Development & Focus
       synapse: {
-        title: "Brain Development & Pruning",
+        title: "Normal brain pruning and development",
         body: "Chromosome 6 (C4A region). Manages standard synaptic pruning—the natural process where the brain streamlines neural connections during growth.",
         tProgress: 0.94,
         color: 0xff5522
       },
       dopamine: {
-        title: "Dopamine Receptor (DRD4)",
+        title: " You have steady focus and dopamine balance (DRD4)",
         body: "Chromosome 11. Your receptor profile shows balanced dopamine signaling, supporting steady mental focus and task persistence.",
         tProgress: 0.98,
         color: 0xff33aa
