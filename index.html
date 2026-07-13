@@ -89,6 +89,7 @@
 
     .modal-card h2 {
       font-size: 1.35rem;
+      padding-bottom: 8px;
       color: #fff;
       display: flex;
       align-items: center;
@@ -100,7 +101,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--accent-cyan);
-      margin: 8px 0;
+      padding: 8px 0 0;
     }
 
     .modal-card p {
@@ -199,7 +200,7 @@
       box-shadow: 0 6px 20px rgba(0, 121, 200, 0.5);
     }
 
-    .user-profile h1 { font-size: 1.35rem; font-weight: 700; color: #fff; padding-right: 15px; }
+    .user-profile h1 { font-size: 1.35rem; font-weight: 700; color: #fff; padding-right: 15px; padding-bottom: 8px; }
     .user-profile p { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
 
     .story-card-block {
@@ -209,10 +210,71 @@
       padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
     .story-card-block h2 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-cyan); font-weight: 600; }
     .story-text { font-size: 0.88rem; line-height: 1.5; color: #cbd5e1; }
+
+    /* Interactive Pie/Donut Chart Component */
+    .pie-chart-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 4px 0;
+    }
+
+    .pie-chart-svg {
+      width: 180px;
+      height: 180px;
+      transform: rotate(-90deg);
+      overflow: visible;
+    }
+
+    .chart-slice {
+      fill: none;
+      stroke-width: 7;
+      cursor: pointer;
+      transition: stroke-width 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+    }
+
+    .chart-slice:hover {
+      stroke-width: 9.5;
+      filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.6));
+      opacity: 1;
+    }
+
+    .pie-chart-info {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+      width: 100px;
+      padding: 0 4px;
+    }
+
+    .pie-chart-info .region-name {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #e1e7ed;
+      line-height: 1.25;
+      word-break: break-word;
+      overflow: visible;
+    }
+
+    .pie-chart-info .region-percentage {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin-top: 2px;
+    }
 
     .explore-btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
     
@@ -307,7 +369,8 @@
   <div id="modal-overlay">
     <div class="modal-card">
       <div>
-        <h2>Hi John, here's your interactive genome 🧬</h2>
+        <h2>About your interactive genome story 🧬</h2>
+        <p>This app contains the results of your myDNA pharmacogenic test. You can access this personalised dashboard any time.</p>
       </div>
       <h3>Why is your DNA shaped like a folded ribbon?</h3>
       <p>
@@ -331,7 +394,7 @@
           </div>
           <div class="nav-item">
             <strong>Fly-To Gene Locus 📍</strong>
-            Click any <em>"Explore"</em> button on the left panel to zoom directly to that gene locus.
+            Click any <em>"Explore"</em> button or pie chart segment to zoom directly to that gene locus.
           </div>
           <div class="nav-item">
             <strong>Reset View 🔄</strong>
@@ -361,7 +424,61 @@
       </div>
 
       <div class="story-card-block">
-        <h2>1. Cardiovascular & Health Risks</h2>
+        <h2>1. Ancestry & Regional Heritage</h2>
+        
+        <div class="pie-chart-container">
+          <svg viewBox="0 0 42 42" class="pie-chart-svg">
+            <circle class="chart-slice" cx="21" cy="21" r="15.91549430918954" pathLength="100"
+                    stroke="#0079C8" stroke-dasharray="38 62" stroke-dashoffset="0"
+                    onmouseenter="updatePieHover('Ireland & Scotland', '38%')" onmouseleave="resetPieHover()"
+                    onclick="selectPieSegment('heritage_celtic')"></circle>
+            <circle class="chart-slice" cx="21" cy="21" r="15.91549430918954" pathLength="100"
+                    stroke="#00d2ff" stroke-dasharray="30 70" stroke-dashoffset="-38"
+                    onmouseenter="updatePieHover('England & NW Europe', '30%')" onmouseleave="resetPieHover()"
+                    onclick="selectPieSegment('heritage_english')"></circle>
+            <circle class="chart-slice" cx="21" cy="21" r="15.91549430918954" pathLength="100"
+                    stroke="#38bdf8" stroke-dasharray="18 82" stroke-dashoffset="-68"
+                    onmouseenter="updatePieHover('Norway & Sweden', '18%')" onmouseleave="resetPieHover()"
+                    onclick="selectPieSegment('heritage_nordic')"></circle>
+            <circle class="chart-slice" cx="21" cy="21" r="15.91549430918954" pathLength="100"
+                    stroke="#a855f7" stroke-dasharray="11.9 88.1" stroke-dashoffset="-86"
+                    onmouseenter="updatePieHover('Poland & Baltic', '11.9%')" onmouseleave="resetPieHover()"
+                    onclick="selectPieSegment('heritage_slavic')"></circle>
+            <circle class="chart-slice" cx="21" cy="21" r="15.91549430918954" pathLength="100"
+                    stroke="#ff3366" stroke-dasharray="2.1 97.9" stroke-dashoffset="-97.9"
+                    onmouseenter="updatePieHover('Neanderthal Relic', '2.1%')" onmouseleave="resetPieHover()"
+                    onclick="selectPieSegment('neanderthal')"></circle>
+          </svg>
+          <div class="pie-chart-info">
+            <span class="region-name" id="pie-region-label">Heritage Breakdown</span>
+            <span class="region-percentage" id="pie-percent-label"></span>
+          </div>
+        </div>
+
+        <p class="story-text">
+          John's genetic lineage reflects a multi-region European composition with deep Gaelic, Germanic, Nordic, and ancient archaic roots.
+        </p>
+        <div class="explore-btn-group">
+          <button class="explore-btn" id="btn-heritage_celtic" onclick="flyToStory('heritage_celtic', this)">
+            📍 Ireland & Scotland <span class="ethnicity-badge">38%</span>
+          </button>
+          <button class="explore-btn" id="btn-heritage_english" onclick="flyToStory('heritage_english', this)">
+            📍 England & NW Europe <span class="ethnicity-badge">30%</span>
+          </button>
+          <button class="explore-btn" id="btn-heritage_nordic" onclick="flyToStory('heritage_nordic', this)">
+            📍 Norway & Sweden <span class="ethnicity-badge">18%</span>
+          </button>
+          <button class="explore-btn" id="btn-heritage_slavic" onclick="flyToStory('heritage_slavic', this)">
+            📍 Poland & Baltic Region <span class="ethnicity-badge">11.9%</span>
+          </button>
+          <button class="explore-btn" id="btn-neanderthal" onclick="flyToStory('neanderthal', this)">
+            📍 Neanderthal Relic <span class="ethnicity-badge">2.1%</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="story-card-block">
+        <h2>2. Cardiovascular & Health Risks</h2>
         <p class="story-text">
           John, your cardiovascular panel shows strong genetic baseline protection for heart elasticity, alongside typical lung immunity. Details below.
         </p>
@@ -373,7 +490,7 @@
       </div>
 
       <div class="story-card-block">
-        <h2>2. Inherited Traits & Carrier Status</h2>
+        <h2>3. Inherited Traits & Carrier Status</h2>
         <p class="story-text">
           Single-gene checks confirm you do not carry inherited mutations for cystic fibrosis or sickle cell trait, and carry standard DNA repair capabilities. Details below.
         </p>
@@ -385,37 +502,13 @@
       </div>
 
       <div class="story-card-block">
-        <h2>3. Brain Development & Focus</h2>
+        <h2>4. Brain Development & Focus</h2>
         <p class="story-text">
           Neurological markers indicate typical synaptic pruning during adolescent brain development, paired with balanced dopamine receptor density. Details below.
         </p>
         <div class="explore-btn-group">
           <button class="explore-btn" onclick="flyToStory('synapse', this)">📍 Synaptic Pruning (C4A)</button>
           <button class="explore-btn" onclick="flyToStory('dopamine', this)">📍 Focus & Novelty Seeking</button>
-        </div>
-      </div>
-
-      <div class="story-card-block">
-        <h2>4. Ancestry & Regional Heritage</h2>
-        <p class="story-text">
-          John's genetic lineage reflects a multi-region European composition with deep Gaelic, Germanic, Nordic, and ancient archaic roots. Details below.
-        </p>
-        <div class="explore-btn-group">
-          <button class="explore-btn" onclick="flyToStory('heritage_celtic', this)">
-            📍 Ireland & Scotland <span class="ethnicity-badge">38%</span>
-          </button>
-          <button class="explore-btn" onclick="flyToStory('heritage_english', this)">
-            📍 England & NW Europe <span class="ethnicity-badge">30%</span>
-          </button>
-          <button class="explore-btn" onclick="flyToStory('heritage_nordic', this)">
-            📍 Norway & Sweden <span class="ethnicity-badge">18%</span>
-          </button>
-          <button class="explore-btn" onclick="flyToStory('heritage_slavic', this)">
-            📍 Poland & Baltic Region <span class="ethnicity-badge">11.9%</span>
-          </button>
-          <button class="explore-btn" onclick="flyToStory('neanderthal', this)">
-            📍 Neanderthal Relic <span class="ethnicity-badge">2.1%</span>
-          </button>
         </div>
       </div>
 
@@ -445,6 +538,21 @@
         toggleBtn.innerHTML = '◀';
         toggleBtn.title = "Collapse Panel";
       }
+    }
+
+    function updatePieHover(region, percentage) {
+      document.getElementById('pie-region-label').innerText = region;
+      document.getElementById('pie-percent-label').innerText = percentage;
+    }
+
+    function resetPieHover() {
+      document.getElementById('pie-region-label').innerText = 'Heritage Breakdown';
+      document.getElementById('pie-percent-label').innerText = '';
+    }
+
+    function selectPieSegment(storyKey) {
+      const targetBtn = document.getElementById('btn-' + storyKey);
+      flyToStory(storyKey, targetBtn);
     }
 
     const STORIES = {
@@ -545,14 +653,14 @@
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
 
-    // Enhanced Laboratory Lighting Setup
+    // Laboratory Lighting Setup
     scene.add(new THREE.AmbientLight(0xffffff, 0.8));
     
     const cyanPointLight = new THREE.PointLight(0x00f0ff, 2.5, 120);
     cyanPointLight.position.set(20, 30, 20);
     scene.add(cyanPointLight);
 
-    // Rim light for edge glow (Magenta background light)
+    // Rim light for edge glow
     const rimLight = new THREE.PointLight(0xff007f, 3.0, 100);
     rimLight.position.set(-30, -20, -30);
     scene.add(rimLight);
@@ -597,7 +705,6 @@
     const curve = new THREE.CatmullRomCurve3(curvePoints);
     const tubeGeometry = new THREE.TubeGeometry(curve, 350, 0.85, 16, false);
 
-    // Upgrade to PBR Physical Material with Clearcoat and Bump Map
     const tubeMaterial = new THREE.MeshPhysicalMaterial({
       color: 0x223042,
       roughness: 0.25,
