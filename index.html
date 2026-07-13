@@ -167,8 +167,8 @@
       gap: 20px;
       overflow-y: auto;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-      z-index: 1000;
       position: relative;
+      z-index: 100;
     }
 
     /* Floating Circular Collapse Toggle */
@@ -421,7 +421,7 @@
     <div id="story-panel">
       <div class="user-profile">
         <h1>John, this is your genome story</h1>
-        <p>Explore how your genetics shape your health, ancestral heritage, and brain traits. Your DNA is folded into 3D loops inside your cells.</p>
+        <p>Explore how your genetics shape your health, ancestral heritage, nutrigenomics, and brain traits. Your DNA is folded into 3D loops inside your cells.</p>
       </div>
 
       <div class="story-card-block">
@@ -457,7 +457,7 @@
         </div>
 
         <p class="story-text">
-          John's genetic lineage reflects a multi-region European composition with deep Gaelic, Germanic, Nordic, and ancient archaic roots.
+          John's genetic lineage reflects a multi-region European composition with deep Gaelic, Germanic, Nordic, and ancient archaic roots. Details below.
         </p>
         <div class="explore-btn-group">
           <button class="explore-btn" id="btn-heritage_celtic" onclick="flyToStory('heritage_celtic', this)">
@@ -479,37 +479,50 @@
       </div>
 
       <div class="story-card-block">
-        <h2>2. Cardiovascular & Health Risks</h2>
+        <h2>2. Nutrigenomics & Lifestyle Traits</h2>
+        <p class="story-text">
+          Explore how your metabolic enzymes process caffeine, dairy sugars, essential vitamins, and dietary fats. Details below.
+        </p>
+        <div class="explore-btn-group">
+          <button class="explore-btn" id="btn-caffeine" onclick="flyToStory('caffeine', this)">☕ Caffeine: Fast Metabolizer</button>
+          <button class="explore-btn" id="btn-lactose" onclick="flyToStory('lactose', this)">🥛 Lactase Persistent (Tolerant)</button>
+          <button class="explore-btn" id="btn-vitamin_d" onclick="flyToStory('vitamin_d', this)">☀️ Vitamin D Efficiency</button>
+          <button class="explore-btn" id="btn-fat_sensitivity" onclick="flyToStory('fat_sensitivity', this)">🥑 Fat Sensitivity (FTO)</button>
+        </div>
+      </div>
+
+      <div class="story-card-block">
+        <h2>3. Cardiovascular & Health Risks</h2>
         <p class="story-text">
           John, your cardiovascular panel shows strong genetic baseline protection for heart elasticity, alongside typical lung immunity. Details below.
         </p>
         <div class="explore-btn-group">
-          <button class="explore-btn" onclick="flyToStory('heart', this)">📍 Heart Disease Risk: Low</button>
-          <button class="explore-btn" onclick="flyToStory('asthma', this)">📍 Airway Resilience</button>
-          <button class="explore-btn" onclick="flyToStory('colorectal', this)">📍 Gut & Digestive Wellness</button>
+          <button class="explore-btn" id="btn-heart" onclick="flyToStory('heart', this)">📍 Heart Disease Risk: Low</button>
+          <button class="explore-btn" id="btn-asthma" onclick="flyToStory('asthma', this)">📍 Airway Resilience</button>
+          <button class="explore-btn" id="btn-colorectal" onclick="flyToStory('colorectal', this)">📍 Gut & Digestive Wellness</button>
         </div>
       </div>
 
       <div class="story-card-block">
-        <h2>3. Inherited Traits & Carrier Status</h2>
+        <h2>4. Inherited Traits & Carrier Status</h2>
         <p class="story-text">
           Single-gene checks confirm you do not carry inherited mutations for cystic fibrosis or sickle cell trait, and carry standard DNA repair capabilities. Details below.
         </p>
         <div class="explore-btn-group">
-          <button class="explore-btn" onclick="flyToStory('sickle_cell', this)">📍 Sickle Cell: Clear</button>
-          <button class="explore-btn" onclick="flyToStory('cystic_fibrosis', this)">📍 Cystic Fibrosis: Clear</button>
-          <button class="explore-btn" onclick="flyToStory('brca', this)">📍 BRCA DNA Quality Control</button>
+          <button class="explore-btn" id="btn-sickle_cell" onclick="flyToStory('sickle_cell', this)">📍 Sickle Cell: Clear</button>
+          <button class="explore-btn" id="btn-cystic_fibrosis" onclick="flyToStory('cystic_fibrosis', this)">📍 Cystic Fibrosis: Clear</button>
+          <button class="explore-btn" id="btn-brca" onclick="flyToStory('brca', this)">📍 BRCA DNA Quality Control</button>
         </div>
       </div>
 
       <div class="story-card-block">
-        <h2>4. Brain Development & Focus</h2>
+        <h2>5. Brain Development & Focus</h2>
         <p class="story-text">
           Neurological markers indicate typical synaptic pruning during adolescent brain development, paired with balanced dopamine receptor density. Details below.
         </p>
         <div class="explore-btn-group">
-          <button class="explore-btn" onclick="flyToStory('synapse', this)">📍 Synaptic Pruning (C4A)</button>
-          <button class="explore-btn" onclick="flyToStory('dopamine', this)">📍 Focus & Novelty Seeking</button>
+          <button class="explore-btn" id="btn-synapse" onclick="flyToStory('synapse', this)">📍 Synaptic Pruning (C4A)</button>
+          <button class="explore-btn" id="btn-dopamine" onclick="flyToStory('dopamine', this)">📍 Focus & Novelty Seeking</button>
         </div>
       </div>
 
@@ -557,83 +570,116 @@
     }
 
     const STORIES = {
-      heart: {
-        title: "Heart Health: Optimal Baseline",
-        body: "Chromosome 9 (9p21 region). John, you carry protective variants that support healthy vascular lining and low natural inflammation around arterial walls.",
-        tProgress: 0.10,
-        color: 0x00f0ff
-      },
-      asthma: {
-        title: "Airway & Respiratory Defense",
-        body: "Chromosome 17 (ORMDL3). Your genetic profile indicates normal bronchial airway responsiveness to seasonal dust and environmental allergens.",
-        tProgress: 0.18,
-        color: 0x33ff88
-      },
-      colorectal: {
-        title: "Digestive DNA Maintenance",
-        body: "Chromosome 8. High-performing mismatch repair markers that maintain healthy gastrointestinal cell renewal.",
-        tProgress: 0.26,
-        color: 0x00aeff
-      },
-      sickle_cell: {
-        title: "Sickle Cell Carrier: Clear",
-        body: "Chromosome 11 (HBB gene). Both gene copies produce standard hemoglobin, ensuring round, flexible red blood cells.",
-        tProgress: 0.35,
-        color: 0xffaa00
-      },
-      cystic_fibrosis: {
-        title: "Cystic Fibrosis (CFTR): Clear",
-        body: "Chromosome 7. No CFTR channel mutations detected. Your body regulates cellular salt and fluid balance without disruption.",
-        tProgress: 0.43,
-        color: 0xcc66ff
-      },
-      brca: {
-        title: "BRCA1 / BRCA2 Protection",
-        body: "Chromosomes 13 & 17. Your DNA repair machinery acts like a vigilant proofreader, detecting and repairing normal cell replication errors smoothly.",
-        tProgress: 0.52,
-        color: 0x33ffaa
-      },
-      synapse: {
-        title: "Brain Development & Pruning",
-        body: "Chromosome 6 (C4A region). Manages standard synaptic pruning—the natural process where the brain streamlines neural connections during growth.",
-        tProgress: 0.60,
-        color: 0xff5522
-      },
-      dopamine: {
-        title: "Dopamine Receptor (DRD4)",
-        body: "Chromosome 11. Your receptor profile shows balanced dopamine signaling, supporting steady mental focus and task persistence.",
-        tProgress: 0.68,
-        color: 0xff33aa
-      },
+      // 1. Heritage
       heritage_celtic: {
         title: "Ireland & Scotland Ancestry (38%)",
         body: "Chromosomes 1 & 12. Gaelic genetic clusters tied to ancient Insular Celtic populations in Connacht (Ireland) and the Scottish Highlands.",
-        tProgress: 0.75,
+        tProgress: 0.05,
         color: 0x0079C8
       },
       heritage_english: {
         title: "England & NW Europe (30%)",
         body: "Chromosomes 4 & 18. Anglo-Saxon and Lowland European signatures centered across Southern England, Normandy, and the Rhine River basin.",
-        tProgress: 0.82,
+        tProgress: 0.11,
         color: 0x00d2ff
       },
       heritage_nordic: {
         title: "Norway & Sweden Ancestry (18%)",
         body: "Chromosome 5. Coastal Scandinavian haplotypes originating from Western Norway, associated with historic North Sea seafaring lineages.",
-        tProgress: 0.88,
+        tProgress: 0.17,
         color: 0x38bdf8
       },
       heritage_slavic: {
         title: "Poland & Baltic Ancestry (11.9%)",
         body: "Chromosome 14 (R1a-M458 marker region). West Slavic ancestry traceable to early agricultural settlements along the Vistula and Oder basins.",
-        tProgress: 0.94,
+        tProgress: 0.23,
         color: 0xa855f7
       },
       neanderthal: {
         title: "Ancient Neanderthal Relic (2.1%)",
-        body: "Chromosome 3 (2p25.3 region). An archaic introgression segment from ~50,000 years ago that enhanced epidermal keratin density and UV synthesis in northern European environments.",
-        tProgress: 0.98,
+        body: "Chromosome 3 (2p25.3 region). An archaic introgression segment from ~50,000 years ago that enhanced epidermal keratin density and UV synthesis.",
+        tProgress: 0.29,
         color: 0xff3366
+      },
+
+      // 2. Nutrigenomics & Lifestyle Traits
+      caffeine: {
+        title: "Caffeine Metabolism: Fast (CYP1A2)",
+        body: "Chromosome 15. You possess high-activity CYP1A2 liver enzymes, allowing rapid caffeine clearance without lingering sleep disruption or elevated jitteriness.",
+        tProgress: 0.35,
+        color: 0xffaa00
+      },
+      lactose: {
+        title: "Lactase Persistence (LCT/MCM6)",
+        body: "Chromosome 2. You carry the active lactase persistence regulatory variant, allowing smooth digestion of lactose and fresh dairy products throughout adulthood.",
+        tProgress: 0.41,
+        color: 0x33ff88
+      },
+      vitamin_d: {
+        title: "Vitamin D Binding Protein (GC)",
+        body: "Chromosome 4. Standard binding efficiency for circulating 25-hydroxyvitamin D, supporting optimal calcium absorption and bone turnover.",
+        tProgress: 0.47,
+        color: 0xffff33
+      },
+      fat_sensitivity: {
+        title: "Dietary Fat & Weight Sensitivity (FTO)",
+        body: "Chromosome 16. Your FTO intron variant indicates moderate weight sensitivity to high-saturated-fat diets, favoring balanced unsaturated fat intake.",
+        tProgress: 0.53,
+        color: 0xff8800
+      },
+
+      // 3. Cardiovascular & Health Risks
+      heart: {
+        title: "Heart Health: Optimal Baseline",
+        body: "Chromosome 9 (9p21 region). John, you carry protective variants that support healthy vascular lining and low natural inflammation around arterial walls.",
+        tProgress: 0.59,
+        color: 0x00f0ff
+      },
+      asthma: {
+        title: "Airway & Respiratory Defense",
+        body: "Chromosome 17 (ORMDL3). Your genetic profile indicates normal bronchial airway responsiveness to seasonal dust and environmental allergens.",
+        tProgress: 0.65,
+        color: 0x33ff88
+      },
+      colorectal: {
+        title: "Digestive DNA Maintenance",
+        body: "Chromosome 8. High-performing mismatch repair markers that maintain healthy gastrointestinal cell renewal.",
+        tProgress: 0.71,
+        color: 0x00aeff
+      },
+
+      // 4. Inherited Traits & Carrier Status
+      sickle_cell: {
+        title: "Sickle Cell Carrier: Clear",
+        body: "Chromosome 11 (HBB gene). Both gene copies produce standard hemoglobin, ensuring round, flexible red blood cells.",
+        tProgress: 0.77,
+        color: 0xffaa00
+      },
+      cystic_fibrosis: {
+        title: "Cystic Fibrosis (CFTR): Clear",
+        body: "Chromosome 7. No CFTR channel mutations detected. Your body regulates cellular salt and fluid balance without disruption.",
+        tProgress: 0.83,
+        color: 0xcc66ff
+      },
+      brca: {
+        title: "BRCA1 / BRCA2 Protection",
+        body: "Chromosomes 13 & 17. Your DNA repair machinery acts like a vigilant proofreader, detecting and repairing normal cell replication errors smoothly.",
+        tProgress: 0.89,
+        color: 0x33ffaa
+      },
+
+      // 5. Brain Development & Focus
+      synapse: {
+        title: "Brain Development & Pruning",
+        body: "Chromosome 6 (C4A region). Manages standard synaptic pruning—the natural process where the brain streamlines neural connections during growth.",
+        tProgress: 0.94,
+        color: 0xff5522
+      },
+      dopamine: {
+        title: "Dopamine Receptor (DRD4)",
+        body: "Chromosome 11. Your receptor profile shows balanced dopamine signaling, supporting steady mental focus and task persistence.",
+        tProgress: 0.98,
+        color: 0xff33aa
       }
     };
 
