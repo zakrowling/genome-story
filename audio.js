@@ -3,7 +3,7 @@ const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 // --- Background Music ---
 let bgBuffer;
 const masterGain = audioContext.createGain();
-masterGain.gain.value = 0.12;
+masterGain.gain.value = 0.1;
 masterGain.connect(audioContext.destination);
 
 let nextSourceStartTime = 0;
@@ -30,7 +30,7 @@ function scheduleLoop() {
     source.connect(gainNode);
     gainNode.connect(masterGain);
     
-    const crossfade = 15.0;
+    const crossfade = 19.0;
     const duration = bgBuffer.duration;
     const loopTime = duration - crossfade;
     const now = audioContext.currentTime;
@@ -158,7 +158,7 @@ function startWhoosh() {
     const bandpass = audioContext.createBiquadFilter();
     bandpass.type = 'bandpass';
     bandpass.frequency.value = 200;
-    bandpass.Q.value = 7;
+    bandpass.Q.value = 30;
 
     const gainNode = audioContext.createGain();
     gainNode.gain.setValueAtTime(0, audioContext.currentTime);
