@@ -113,7 +113,7 @@ function toggleModal(show) {
         color: 0x33ff88
       },
       colorectal: {
-        title: "Healthy Digestive cell repair and maintenance",
+        title: "Healthy digestive cell repair and maintenance",
         body: "Chromosome 8. High-performing mismatch repair markers that maintain healthy gastrointestinal cell renewal.",
         tProgress: 0.71,
         color: 0x00aeff
@@ -127,7 +127,7 @@ function toggleModal(show) {
         color: 0xffaa00
       },
       cystic_fibrosis: {
-        title: "Clear of cystic fibrosis (CFTR)",
+        title: "Clear of cystic fibrosis (CFTR) mutations",
         body: "Chromosome 7. No CFTR channel mutations detected. Your body regulates cellular salt and fluid balance without disruption.",
         tProgress: 0.83,
         color: 0xcc66ff
