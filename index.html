@@ -213,7 +213,7 @@
       flex-direction: column;
       gap: 12px;
     }
-    .story-card-block h2 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-cyan); font-weight: 600; }
+    .story-card-block h2 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; font-weight: 600; }
     .story-text { font-size: 0.88rem; line-height: 1.5; color: #cbd5e1; }
 
     /* Interactive Pie/Donut Chart Component */
@@ -800,10 +800,12 @@
 
     particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
     const particleMat = new THREE.PointsMaterial({
-      size: 0.4,
+      size: 0.3,
+      sizeAttenuation: true,
       color: 0x00f0ff,
       transparent: true,
-      opacity: 0.35,
+      fog: false,
+      opacity: 0.2,
       blending: THREE.AdditiveBlending
     });
 
