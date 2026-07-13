@@ -3,7 +3,7 @@ const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 // --- Background Music ---
 let bgBuffer;
 const masterGain = audioContext.createGain();
-masterGain.gain.value = 0.2;
+masterGain.gain.value = 0.12;
 masterGain.connect(audioContext.destination);
 
 let nextSourceStartTime = 0;
@@ -30,7 +30,7 @@ function scheduleLoop() {
     source.connect(gainNode);
     gainNode.connect(masterGain);
     
-    const crossfade = 14.0;
+    const crossfade = 15.0;
     const duration = bgBuffer.duration;
     const loopTime = duration - crossfade;
     const now = audioContext.currentTime;
@@ -120,20 +120,21 @@ function playWhooshSound() {
 
     const bandpass = audioContext.createBiquadFilter();
     bandpass.type = 'bandpass';
-    bandpass.Q.value = 0.5; 
+    bandpass.frequency.value = 200;
+    bandpass.Q.value = 0.8; 
 
     const gainNode = audioContext.createGain();
-    gainNode.gain.setValueAtTime(0.0001, now);
+    gainNode.gain.setValueAtTime(0.01, now);
 
     noise.connect(bandpass);
     bandpass.connect(gainNode);
     gainNode.connect(audioContext.destination);
 
     bandpass.frequency.setValueAtTime(80, now);
-    bandpass.frequency.exponentialRampToValueAtTime(500, now + 1); 
+    bandpass.frequency.exponentialRampToValueAtTime(700, now + 1); 
     bandpass.frequency.exponentialRampToValueAtTime(100, now + duration);
 
-    gainNode.gain.exponentialRampToValueAtTime(0.1, now + 0.8); 
+    gainNode.gain.exponentialRampToValueAtTime(0.1, now + 1); 
     gainNode.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
     noise.start(now);
@@ -156,12 +157,12 @@ function startWhoosh() {
 
     const bandpass = audioContext.createBiquadFilter();
     bandpass.type = 'bandpass';
-    bandpass.frequency.value = 400;
-    bandpass.Q.value = 5;
+    bandpass.frequency.value = 200;
+    bandpass.Q.value = 7;
 
     const gainNode = audioContext.createGain();
     gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.05, audioContext.currentTime + 0.1);
+    gainNode.gain.linearRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
 
     noise.connect(bandpass);
     bandpass.connect(gainNode);
@@ -175,7 +176,7 @@ function stopWhoosh() {
     if (!whooshNode) return;
 
     whooshNode.gainNode.gain.cancelScheduledValues(audioContext.currentTime);
-    whooshNode.gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.2);
+    whooshNode.gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.15);
     whooshNode.noise.stop(audioContext.currentTime + 0.2);
     whooshNode = null;
 }
