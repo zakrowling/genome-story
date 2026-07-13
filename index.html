@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=1280, initial-scale=1.0" />
   <title>Genome Story for John Smith</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
@@ -144,7 +144,7 @@
       position: absolute;
       top: 20px;
       left: 20px;
-      z-index: 10;
+      z-index: 100;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -166,7 +166,7 @@
       overflow-y: auto;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
       position: relative;
-      z-index: 100;
+      z-index: 1000;
     }
 
     /* Floating Circular Collapse Toggle */
@@ -212,7 +212,7 @@
       flex-direction: column;
       gap: 12px;
     }
-    .story-card-block h2 { font-size: 0.82rem; letter-spacing: 1px; color: #fff; font-weight: 600; }
+    .story-card-block h2 { font-size: 1rem; color: #fff; font-weight: 600; }
     .story-text { font-size: 0.88rem; line-height: 1.5; color: #cbd5e1; }
 
     /* Interactive Pie/Donut Chart Component */
@@ -369,8 +369,8 @@
   <div id="modal-overlay">
     <div class="modal-card">
       <div>
-        <h2>About your imaginary genome story 🧬</h2>
-        <p>This page contains the results of your imaginary pharmacogenic test. You can access this personalised dashboard any time.</p>
+        <h2>About your (imaginary) genome story 🧬</h2>
+        <p>This page contains the results of your interactive pharmacogenic test. You can access this personalised dashboard at any time.</p>
       </div>
       <h3>Why is your DNA shaped like a folded ribbon?</h3>
       <p>
@@ -571,25 +571,25 @@
     const STORIES = {
       // 1. Heritage
       heritage_celtic: {
-        title: "Ireland & Scotland Ancestry (38%)",
+        title: "Irish & Scottish Ancestry (38%)",
         body: "Chromosomes 1 & 12. Gaelic genetic clusters tied to ancient Insular Celtic populations in Connacht (Ireland) and the Scottish Highlands.",
         tProgress: 0.05,
         color: 0x0079C8
       },
       heritage_english: {
-        title: "England & NW Europe (30%)",
+        title: "English & NW European (30%)",
         body: "Chromosomes 4 & 18. Anglo-Saxon and Lowland European signatures centered across Southern England, Normandy, and the Rhine River basin.",
         tProgress: 0.11,
         color: 0x00d2ff
       },
       heritage_nordic: {
-        title: "Norway & Sweden Ancestry (18%)",
+        title: "Norwegian & Swedish Ancestry (18%)",
         body: "Chromosome 5. Coastal Scandinavian haplotypes originating from Western Norway, associated with historic North Sea seafaring lineages.",
         tProgress: 0.17,
         color: 0x38bdf8
       },
       heritage_slavic: {
-        title: "Poland & Baltic Ancestry (11.9%)",
+        title: "Polish & Baltic Ancestry (11.9%)",
         body: "Chromosome 14 (R1a-M458 marker region). West Slavic ancestry traceable to early agricultural settlements along the Vistula and Oder basins.",
         tProgress: 0.23,
         color: 0xa855f7
@@ -811,12 +811,15 @@
     const particleSystem = new THREE.Points(particleGeo, particleMat);
     scene.add(particleSystem);
 
-    // --- Active Selection Hula-Hoop Ring ---
-    const ringGeo = new THREE.TorusGeometry(2.0, 0.12, 16, 32);
+    // --- Active Selection Hula-Hoop Ring Pivot Setup ---
+    const ringGroup = new THREE.Group();
+    const ringGeo = new THREE.TorusGeometry(1.8, 0.08, 16, 32);
     const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true, transparent: true, opacity: 0.85 });
     const locusRing = new THREE.Mesh(ringGeo, ringMat);
-    locusRing.visible = false;
-    scene.add(locusRing);
+
+    ringGroup.add(locusRing);
+    ringGroup.visible = false;
+    scene.add(ringGroup);
 
     // --- Camera Fly-to & Positioning ---
     const tooltipEl = document.getElementById('tooltip-3d');
@@ -833,16 +836,16 @@
       const localPoint = curve.getPointAt(story.tProgress);
       activeTargetWorldPos = genomeMesh.localToWorld(localPoint.clone());
 
-      // Position ring at target point
-      locusRing.position.copy(activeTargetWorldPos);
+      // 1. Position group at target point
+      ringGroup.position.copy(activeTargetWorldPos);
 
-      // Align ring normal perpendicular to curve tangent (Hula-Hoop position around DNA tube)
+      // 2. Align parent group Z-axis along the curve's tangent vector
       const tangent = curve.getTangentAt(story.tProgress).normalize();
       const defaultNormal = new THREE.Vector3(0, 0, 1);
-      locusRing.quaternion.setFromUnitVectors(defaultNormal, tangent);
+      ringGroup.quaternion.setFromUnitVectors(defaultNormal, tangent);
 
       ringMat.color.setHex(story.color);
-      locusRing.visible = true;
+      ringGroup.visible = true;
 
       ttTitle.innerText = story.title;
       ttBody.innerText = story.body;
@@ -875,7 +878,7 @@
       document.querySelectorAll('.explore-btn').forEach(b => b.classList.remove('active'));
       activeTargetWorldPos = null;
       tooltipEl.style.opacity = '0';
-      locusRing.visible = false;
+      ringGroup.visible = false;
 
       gsap.to(tubeMaterial, { opacity: 0.88, duration: 0.8 });
       gsap.to(camera.position, { x: 0, y: 0, z: 75, duration: 1.5, ease: "power2.inOut" });
@@ -906,12 +909,12 @@
       controls.update();
       updateTooltipPosition();
 
-      // Spin particles gently
+      // Spin background particles gently
       particleSystem.rotation.y += 0.0003;
 
-      // Spin ring in single axis around the tube like a hula hoop
-      if (locusRing.visible) {
-        locusRing.rotateZ(0.03);
+      // Spin inner ring mesh cleanly around its local Z-axis
+      if (ringGroup.visible) {
+        locusRing.rotation.z += 0.03;
       }
 
       // Rotate whole structure in resting view
