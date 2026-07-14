@@ -91,7 +91,7 @@
 
     .modal-card h3 {
       font-size: 1rem;
-      color: var(--accent-cyan);
+      color: #fff;
       padding: 8px 0 0;
     }
 
@@ -116,7 +116,7 @@
       font-size: 0.82rem;
       line-height: 1.5em;
     }
-    .nav-item strong { color: var(--accent-cyan); display: block; margin-bottom: 2px; }
+    .nav-item strong { color: #fff; display: block; margin-bottom: 2px; }
 
     .btn-start {
       background: var(--accent-cyan);
