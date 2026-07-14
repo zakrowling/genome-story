@@ -3,7 +3,7 @@ const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 // --- Background Music ---
 let bgBuffer;
 const masterGain = audioContext.createGain();
-masterGain.gain.value = 0.1;
+masterGain.gain.value = 0.15;
 masterGain.connect(audioContext.destination);
 
 let nextSourceStartTime = 0;
@@ -68,7 +68,7 @@ function startBackgroundMusic() {
 }
 
 function toggleMuteBackgroundMusic() {
-    const targetGain = masterGain.gain.value > 0 ? 0 : 0.5;
+    const targetGain = masterGain.gain.value > 0 ? 0 : 0.15;
     masterGain.gain.linearRampToValueAtTime(targetGain, audioContext.currentTime + 0.2);
 }
 
