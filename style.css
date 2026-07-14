@@ -15,7 +15,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Montserrat", "Gotham", "Segoe UI", Roboto, sans-serif; }
     body { background-color: var(--bg); color: var(--text); overflow: hidden; height: 100vh; }
 
-    #canvas-container { width: 100vw; height: 100vh; position: absolute; top: 0; left: 200px; z-index: 1; }
+    #canvas-container { width: 100vw; height: 100vh; position: absolute; top: 0; left: 300px; z-index: 1; }
 
     /* Top Action Bar */
     #top-bar {
@@ -135,24 +135,23 @@
     /* Interactive Story Panel Container */
     #story-panel-wrapper {
       position: absolute;
-      top: 20px;
-      left: 20px;
+      top: 0;
+      left: 0;
       z-index: 100;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     #story-panel-wrapper.collapsed {
-      transform: translateX(-460px);
+      transform: translateX(-500px);
     }
 
     #story-panel {
-      width: 440px;
+      width: 500px;
       max-height: calc(100vh - 40px);
       background: var(--panel-bg);
       backdrop-filter: blur(16px);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
+      padding: 32px;
       display: flex;
       flex-direction: column;
       gap: 20px;
