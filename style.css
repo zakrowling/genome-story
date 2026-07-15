@@ -147,10 +147,12 @@
 
     #story-panel {
       width: 500px;
-      max-height: calc(100vh - 40px);
+      max-height: 100vh;
       background: var(--panel-bg);
       backdrop-filter: blur(16px);
       border: 1px solid var(--border);
+      border-top: 0;
+      border-bottom: 0;
       padding: 32px;
       display: flex;
       flex-direction: column;
